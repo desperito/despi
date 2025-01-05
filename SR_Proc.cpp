@@ -59,7 +59,7 @@ extern void   New_Playrun_Config(void);
 
 #else
 */	
-#if (SOFT_V & SHARC_HW)
+#if (SOFT_V & SHARC_HW)  //RPI-CHECK
  void  SR_PROC::SR_Set(int pSR_LEVEL, int clk48)
  {
 	int kSR, k; 
@@ -114,8 +114,9 @@ extern void   New_Playrun_Config(void);
 		SR_ID = cSR_ID;
 		SR_PROC::SAMPLE_RATE = SRTAB_FPGA[cSR_ID][0];
 		DAC_SR = SR_ID/2+1;
+#if (SOFT_V != LINUX_HW)   //RPI-CHECK		
 		SR_PROC::SR_Set(0,0);
-	
+#endif	
 	}
 
  }

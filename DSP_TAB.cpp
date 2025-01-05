@@ -13,7 +13,7 @@
 extern 		RESAMPLER		RSMP[RSMPOBJ_QTY]; 
 extern 		FILTER			FILT[FILTOBJ_QTY]; 
 
-#include 	"FT_Config.h"
+//#include 	"FT_Config.h"
  
 #define		xMCLIN_TWT		'4'
 
@@ -32,10 +32,11 @@ extern	int		MODCFG_CH;
 	int					DSP_TAB::k_dsp; 
 SECTION(("seg_sdram3"))	char				DSP_TAB::stages[12][DSPTEXT_LEN+DSPSTRING_LEN+1];
 
-#if UART_TYPE == UART_OLD 
+#if UART_TYPE == UART_OLD && SOFT_V != LINUX_HW
 struct S_TABS_size		DSP_TAB::S_TABS[7]= {	S_BAS, sizeof(S_BAS)/sizeof(S_BAS[0]), 		S_MID, sizeof(S_MID)/sizeof(S_MID[0]), 	S_TWT, sizeof(S_TWT)/sizeof(S_TWT[0]),S_PRE, sizeof(S_PRE)/sizeof(S_PRE[0]) 
 											   ,S_MCBAS, sizeof(S_MCBAS)/sizeof(S_MCBAS[0]), S_MCMID, sizeof(S_MCMID)/sizeof(S_MCMID[0]), S_MCTWT, sizeof(S_MCTWT)/sizeof(S_MCTWT[0]) };
-#elif  UART_TYPE == UART_NEW
+
+#elif  UART_TYPE == UART_NEW  || SOFT_V == LINUX_HW
 struct S_TABS_size		DSP_TAB::S_TABS[7]; // = {	S_BAS, sizeof(S_BAS)/sizeof(S_BAS[0]), 		S_MID, sizeof(S_MID)/sizeof(S_MID[0]), 	S_TWT, sizeof(S_TWT)/sizeof(S_TWT[0]),S_PRE, sizeof(S_PRE)/sizeof(S_PRE[0]) 
 											//   ,S_MCBAS, sizeof(S_MCBAS)/sizeof(S_MCBAS[0]), S_MCMID, sizeof(S_MCMID)/sizeof(S_MCMID[0]), S_MCTWT, sizeof(S_MCTWT)/sizeof(S_MCTWT[0]) };
 #endif			   

@@ -37,13 +37,13 @@
 //*****************************************	
 #include 	"hDeli_CMD.hpp"
 
-section ("seg_sdram2")  long long  EPTAB[8][1505]; 
+SECTION ("seg_sdram2")  long long  EPTAB[8][1505]; 
 
 extern 	MCEP_T		TME[]; 
 
 extern 	long long 	TMALF[6][MAL_LEN];
 
- #include "XOFIR.h"
+ #include "include\XOFIR.h"
 //extern 	long long 	TXOFIR[];
 
 #define cGREEN			0x001000
@@ -245,7 +245,7 @@ void DELI_CMD::Proc_SR(int *msg)
 	SR_PROC::Check_SR_CHG(cSR_ID);	
 	if (SR_PROC::SR_CHG)
 	{
-		Print_Debug(sprintf(dbgtab, "%s: %x", "\nSample Rate Chg" , SR_PROC::SAMPLE_RATE), NOTIME);	
+//		Print_Debug(sprintf(dbgtab, "%s: %x", "\nSample Rate Chg" , SR_PROC::SAMPLE_RATE), NOTIME);	
 	  // Light up the related LED	
 	  	msg_SR= Col6[SR_PROC::SR_ID];
 	  	for (k=0; k<20; k++)		
@@ -253,8 +253,9 @@ void DELI_CMD::Proc_SR(int *msg)
 		DELI_CMD::LED_Color(0x1111, Col6[SR_PROC::SR_ID]);			
 		
 		//Send_EP(SET_FIR);
-		
-		//Send_FIR((long long (*))  TXOFIR, SET_FIR, XOFIR_SIZE, x55_CODE_XOFIR);
+		for(k=0; k<sizeof(TXOFIR); k++)
+			TXOFIR[k]/= 8; 
+		Send_FIR((long long (*))  TXOFIR, SET_FIR, XOFIR_SIZE, x55_CODE_XOFIR);
 		
 		Send_MAL();
 		
@@ -300,9 +301,10 @@ void DELI_CMD::LED_Color(int LED_NO, int color_rgb)
 
 	
 	//for(k=0;k<100000;k++);
+#if SOFT_V!= LINUX_HW	
 	for(kframe=0; kframe<DELI_FRAMESIZE; kframe++)
 		Send1Byte(MSG[kframe]);
-	
+#endif	
 //	trace( (char *) MSG, DELI_FRAMESIZE-1);
 }
 #pragma optimize_on
@@ -316,7 +318,9 @@ void DELI_CMD::SEND_EXEC(void)
 	CalcCRC32(0xFFFFFFFF, (char*)MSG, 16);
 	for(kframe=0; kframe<DELI_FRAMESIZE; kframe++)
 	{
+#if SOFT_V!= LINUX_HW		
 		Send1Byte(MSG[kframe]);
+#endif		
 		tmp = kframe;
 	}
 }
@@ -385,7 +389,7 @@ void 	DELI_CMD::Send_EP(int mode)
 {
 	
 	//Send_FIR((long long (*)[3])  EPTAB[SR_PROC::SR_ID], mode, EPFIR_SIZE, (35+128));
-	Print_Debug(sprintf(dbgtab, "\nSend EP  "), NOTIME);		
+	//Print_Debug(sprintf(dbgtab, "\nSend EP  "), NOTIME);		
 	Send_FIR((long long (*))  TME[MCEP::SpkNum].EPF[SR_PROC::SR_ID], mode, EPFIR_SIZE, x55_CODE_EP);
 	
 	Setup_ACKFIR(x55_FIRNO_EP);
@@ -399,7 +403,7 @@ void 	DELI_CMD::Send_MAL(void)
 {
 	
 	//SR_PROC::SR_ID = 0;
-	Print_Debug(sprintf(dbgtab, "\nSend MAL  "), NOTIME);		
+	//Print_Debug(sprintf(dbgtab, "\nSend MAL  "), NOTIME);		
 	
 //	Send_FIR( (long long (*)[3]) RESFIR[SR_PROC::SR_ID], SET_FIR, RESFIR_SIZE, (36+128));
 	Send_FIR( (long long (*)) TMALF[SR_PROC::SR_ID], SET_FIR, MAL_LEN, x55_CODE_MAL);
@@ -422,7 +426,7 @@ int 	DELI_CMD::Setup_ACKFIR(int FIR_NO)
 				
 	tRXQTY = frame_no+ RXFRAME_DELAY;  // target tRXQTY to be monitored to trigger check on FIR packet succcessful delivery
 	tFIRQTY[FIR_NO] = FIRQTY[FIR_NO]; 
-	Print_Debug(sprintf(dbgtab, "ACKSET T%d: %d" , FIR_NO, FIRQTY[x55_FIRNO_EP]), NOTIME);		
+	//Print_Debug(sprintf(dbgtab, "ACKSET T%d: %d" , FIR_NO, FIRQTY[x55_FIRNO_EP]), NOTIME);		
 	
 	//LED_Color(0x0010, SR_PROC::SRTAB_FPGA[0][2] );
 /*		
@@ -438,7 +442,7 @@ int 	DELI_CMD::Check_ACKFIR(void)
 {
 	int k, status_LED;
 	
-	Print_Debug(sprintf(dbgtab, "\nACK_Chg check "), NOTIME);
+	//Print_Debug(sprintf(dbgtab, "\nACK_Chg check "), NOTIME);
 	if (frame_no>= tRXQTY  )
 	{		
 		for(k=0;k<FPGAFIR_QTY;k++)
@@ -446,10 +450,10 @@ int 	DELI_CMD::Check_ACKFIR(void)
 
 			if(tFIRQTY[k]> 0)
 			{
-				Print_Debug(sprintf(dbgtab, " T%d: C%d P%d " , k, FIRQTY[k], tFIRQTY[k]), NOTIME);											
+				//Print_Debug(sprintf(dbgtab, " T%d: C%d P%d " , k, FIRQTY[k], tFIRQTY[k]), NOTIME);											
 				if(FIRQTY[k] - tFIRQTY[k] > 0)
 				{
-					Print_Debug(sprintf(dbgtab, " T%d + " , k, FIRQTY[k]), NOTIME);							
+					//Print_Debug(sprintf(dbgtab, " T%d + " , k, FIRQTY[k]), NOTIME);							
 					status_LED+=(k-1);
 				}
 				else

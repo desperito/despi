@@ -37,7 +37,64 @@ SECTION(("seg_sdram2"))  int		SPK_LETTERS[] = {'B', 'M','T', 'P'};
 	
   //= Class objects definition
 	FILTER				FILT[SPK_QTY+1]; 
+
 	
+#if	(SOFT_V & SHARC_HW) 		
+ #include 	<filter.h>
+#else
+ void iir(const DSPdata *input, DSPdata *output, const DSPdata *coeffs, DSPdata *state, int samples, int sections)
+ {
+    int i;
+    int j;
+    DSPdata X;
+    DSPdata Y = 0;
+
+    for (i = 0; i < samples; i++)
+    {
+        X = input[i];
+
+        for (j = 0; j < sections; j++)
+        {
+            Y = X + state[j * 2 + 0];
+
+            state[j * 2 + 0] = X * coeffs[j * 4 + 3] + Y * coeffs[j * 4 + 1] + state[j * 2 + 1];
+            state[j * 2 + 1] = X * coeffs[j * 4 + 2] + Y * coeffs[j * 4 + 0];
+
+            X = Y;
+        }
+
+        output[i] = Y;
+    }
+ }
+
+ void  fir(const DSPdata *input, DSPdata *output, const DSPdata *coeffs, DSPdata *state, int samples, int  taps)
+ {
+    int 	i;
+    int  	j;
+    DSPdata 	Y;
+    
+    for (i=0; i<samples; i++)
+    {
+        Y = 0;
+        
+        for (j=0; j<taps-1; j++)
+        {
+            Y = Y + state[j] * coeffs[j];
+            
+            state[j] = state[j+1];
+        }
+        
+        Y = Y + state[taps-2] * coeffs[taps-2];
+        
+        state[taps-2] = input[i]; 
+        
+        Y = Y + input[i] * coeffs[taps-1];
+        
+        output[i] = Y;
+    }
+ }
+#endif
+		
 //================================================================================
 //===========  F U N C T I O N   I M P L E M E N T A T I O N          ============
 //================================================================================
@@ -482,58 +539,3 @@ void 	FILTER::DOSX(STAGE_PROC *SP, int kStage)
 
 
 
-#if	(SOFT_V & SHARC_HW) 		
- #include 	<filter.h>
-#else
- void iir(const DSPdata *input, DSPdata *output, const DSPdata *coeffs, DSPdata *state, int samples, int sections)
- {
-    int i;
-    int j;
-    DSPdata X;
-    DSPdata Y = 0;
-
-    for (i = 0; i < samples; i++)
-    {
-        X = input[i];
-
-        for (j = 0; j < sections; j++)
-        {
-            Y = X + state[j * 2 + 0];
-
-            state[j * 2 + 0] = X * coeffs[j * 4 + 3] + Y * coeffs[j * 4 + 1] + state[j * 2 + 1];
-            state[j * 2 + 1] = X * coeffs[j * 4 + 2] + Y * coeffs[j * 4 + 0];
-
-            X = Y;
-        }
-
-        output[i] = Y;
-    }
- }
-
- void  fir(const DSPdata *input, DSPdata *output, const DSPdata *coeffs, DSPdata *state, int samples, int  taps)
- {
-    int 	i;
-    int  	j;
-    DSPdata 	Y;
-    
-    for (i=0; i<samples; i++)
-    {
-        Y = 0;
-        
-        for (j=0; j<taps-1; j++)
-        {
-            Y = Y + state[j] * coeffs[j];
-            
-            state[j] = state[j+1];
-        }
-        
-        Y = Y + state[taps-2] * coeffs[taps-2];
-        
-        state[taps-2] = input[i]; 
-        
-        Y = Y + input[i] * coeffs[taps-1];
-        
-        output[i] = Y;
-    }
- }
-#endif

@@ -19,8 +19,8 @@
 #include 	"hFILTER.hpp"
 #include 	"hDSPSTRING.hpp"
 
-#include 	"rt20.h"
-#include 	"rt200.h"
+#include 	"include\rt20.h"
+#include 	"include\rt200.h"
 
 //#include 	"C:\git_repos\__X1\include\test_x65.h"
 
@@ -266,7 +266,7 @@ void MODEC::Generate_filter(int CHANNEL, float freq, int Q, int dB, int Boost)
 			}
 		}
 */		
-  		trace("Gen",0);
+  		//trace("Gen",0);
 		return;
 	}
 		
@@ -445,7 +445,7 @@ EXTERNC void	 MODEC_Clear_MODEC(void)
 //===========  		  E N D   O F   C L A S S   C O D E   			 =============
 //================================================================================
 /*
-section ("seg_sdram2") 	float  spec1[MODES_QTY][3]= 
+SECTION ("seg_sdram2") 	float  spec1[MODES_QTY][3]= 
 {
   { 20e+00 ,	90 ,	10   },
   { 30e+00 ,	90 ,	8   },

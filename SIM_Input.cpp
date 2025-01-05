@@ -43,7 +43,7 @@
 		#if		SIM_LEN	== SIM_LONG
 			#include 	"HP_DIRAC_TAB24_33k.h"
 		#else
-			#include 	"HP_DIRAC_TAB24_40k_SHORT.h"
+			#include 	"include\HP_DIRAC_TAB24_40k_SHORT.h"
 		#endif
 	#endif
 #else  
@@ -130,7 +130,6 @@ void SIM_INPUT::AudioIN_ISR(int dummy)
   #if (IN1_ACTIVE ==1) 				
 		SRC2 = (SIM_I2SRX->BUF_cnt+1)%2;  //= needed to be synchronized with BUF_cnt that is incremented in the beginning of AudioIN_ISR() called below  
   #endif
-#endif
 	SIM_SIZE= PlaySession::_SMPBLOCK_SIZE* SR_PROC::DAC_SR;		
 	for(k=0; k<SIM_SIZE; k++, tabpos++)
 	{
@@ -150,9 +149,9 @@ void SIM_INPUT::AudioIN_ISR(int dummy)
 	}	
 	// #elif dot. RPI, przesuniete na koniec 	
    //= Call to the actual real-time I2S RX procedure to simulate real-time
-   #if (SOFT_V & SHARC_HW) 	 
+//   #if (SOFT_V & SHARC_HW) 	 
   	SIM_I2SRX->AudioIN_ISR(0);
-   #endif
+#endif
 }
 
 

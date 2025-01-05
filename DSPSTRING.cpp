@@ -329,10 +329,11 @@ void DSPSTRING::SPK_IPL_mapping(char *IPL_variable, int *FIR_CH, char IPL_VAL)
 void DSPSTRING::Apply_Default_String(void)
 {
 	int		msg[6], k;
-	
+
+#if (SOFT_V != LINUX_HW) 		
 	for (k=0; k<DSPSTRING_LEN+1; k++)
 		String[k] = DSPSTRING_default[k];	
-	
+#endif	
 	//PlaySession::ACOUSTIC_CORR = 	String[DAC_CODAC_MODE_0]<'a';
     //if (String[DAC_CODAC_MODE_0] == 'd')    
     //    String[DAC_CODAC_MODE_0] = 	'D';

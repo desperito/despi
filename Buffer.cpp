@@ -7,7 +7,7 @@
 #include 	<stdlib.h>
 #include 	<math.h>
 #include 	"tt.h"
-#include  	"_Sharc_EXPH_DEF.h"
+#include  	".\include\_Sharc_EXPH_DEF.h"
 #include  	"SIM.h"
 #include  	"hBUF_SRC.hpp"
 #include  	"hSR_PROC.hpp"
@@ -158,7 +158,7 @@ BUF_MANAGER 	*BUFSIM_List[10];
 			if (TBUFS[k][LEFT_0].k_INBUFS> 0)
 			{
 				sprintf(dbgtab,"%s:%.1f", BUFNAMES_L[k], ktot/1000);
-				trace(dbgtab, 0);
+				//trace(dbgtab, 0);
 			}
 			for (kf=0; kf<FLOW_QTY; kf++)
 			{
@@ -166,7 +166,7 @@ BUF_MANAGER 	*BUFSIM_List[10];
 				if (TBUFS[k][LEFT_0].Flow[LEFT_0][kf][K_GETBUF_FLOW]> 0)
 				{
 					sprintf(dbgtab,"%s%c:%.1f", BUFNAMES_L[k], kf+48, kftot/1000);
-					trace(dbgtab, 0);
+					//trace(dbgtab, 0);
 				}				
 			}
 		}			

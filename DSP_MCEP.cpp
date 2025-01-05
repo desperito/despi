@@ -12,15 +12,19 @@
 extern 		RESAMPLER		RSMP[RSMPOBJ_QTY]; 
 extern 		FILTER			FILT[FILTOBJ_QTY]; 
 
-#include 	"MALS_.h"
-#include 	"MALF_.h"
+#include 	".\__MCEP_include\MALS_.h"
+#include 	".\__MCEP_include\MALF_.h"
 
 
 #if UART_TYPE == UART_OLD    	  	
-// NULL
+// NULL  
 #elif  UART_TYPE == UART_NEW
 	#include 	"FSections_CORE.h"
 #endif	
+
+#if (SOFT_V == LINUX_HW) 
+	#include 	"FSections_RPI.h"
+#endif
 //==================================================================
 // ----------  E X T E R N S  UZYWNAE PRZEZ MODUL    -----------
 //==================================================================
@@ -44,22 +48,22 @@ extern 		FILTER			FILT[FILTOBJ_QTY];
 											   											   
 //SECTION(("seg_sdram2"))	MCEP_T		MCEP[MCEP_TABSIZE];
 
-#include "MCEP_SH.h"
+#include ".\__MCEP_include\MCEP_SH.h"
 
-// section  ("seg_dmda2")    float pm 		
+// SECTION  ("seg_dmda2")    float pm 		
 
-section ("seg_pmda") 	float 	pm	MCB_CF[MCB_MAXSECT*4+2], MCT_CF[MCT_MAXSECT*4+2]; 
-section ("seg_pmda") 	float 	pm	MCA_CF[MCA_MAXSECT*4+2], MAL_CF[MAL_MAXSECT*4+2];  	
-section  ("seg_dmda2")  float  	MCB_L[MCB_MAXSECT*2+ 1], MCB_R[MCB_MAXSECT*2+ 1], MCT_L[MCT_MAXSECT*2+ 1], MCT_R[MCT_MAXSECT*2+ 1], MCA_L[MCA_MAXSECT*2+ 1], MCA_R[MCA_MAXSECT*2+ 1]; 
-section  ("seg_dmda2")  float  	MAL_L[MAL_MAXSECT*2+ 1], MAL_R[MAL_MAXSECT*2+ 1]; 	
+SECTION ("seg_pmda") 	float 	pm	MCB_CF[MCB_MAXSECT*4+2], MCT_CF[MCT_MAXSECT*4+2]; 
+SECTION ("seg_pmda") 	float 	pm	MCA_CF[MCA_MAXSECT*4+2], MAL_CF[MAL_MAXSECT*4+2];  	
+SECTION  ("seg_dmda2")  float  	MCB_L[MCB_MAXSECT*2+ 1], MCB_R[MCB_MAXSECT*2+ 1], MCT_L[MCT_MAXSECT*2+ 1], MCT_R[MCT_MAXSECT*2+ 1], MCA_L[MCA_MAXSECT*2+ 1], MCA_R[MCA_MAXSECT*2+ 1]; 
+SECTION  ("seg_dmda2")  float  	MAL_L[MAL_MAXSECT*2+ 1], MAL_R[MAL_MAXSECT*2+ 1]; 	
 						int		MCEP::SpkNum;										   
-//section  ("seg_dmda2")	float dm 		MCB_SECT, MCT_SECT, MCA_SECT;
+//SECTION  ("seg_dmda2")	float dm 		MCB_SECT, MCT_SECT, MCA_SECT;
 
 #if SOFT_V & SH_BASE 
 #define		EP_MAXSECT		20	
-section ("seg_pmda") 	float 	pm	EP_CF[EP_MAXSECT*4+2]; 
-section  ("seg_dmda2") 	float  	EP_L[MCB_MAXSECT*2+ 1], EP_R[MCB_MAXSECT*2+ 1]; 
-section  ("seg_dmda2") 	float  	EP_SECT;
+SECTION ("seg_pmda") 	float 	pm	EP_CF[EP_MAXSECT*4+2]; 
+SECTION  ("seg_dmda2") 	float  	EP_L[MCB_MAXSECT*2+ 1], EP_R[MCB_MAXSECT*2+ 1]; 
+SECTION  ("seg_dmda2") 	float  	EP_SECT;
 #endif
 
 
@@ -95,9 +99,11 @@ void MCEP::Init(void)
 	 							  		
 	FILT[TWT].StageInit( 	IIR, 	2, MCT_CF,  MCT_L, MCT_R, MCT_CF[0], 	'C',  	1,  0, 						"MCT_TAB");   
 	FILT[TWT].F_ACTIVE = ON_STATE;
-			
+
+#if SOFT_V & SH_BASE 				
 	RSMP[PRE].StageInit( 	IIR, 	0, EP_CF,   EP_L,  EP_R,  EP_CF[0], 	'P',  	1,  ((4110+2560+1550) <<16 ) | 4110, "EP0_TAB");   							  				
 	RSMP[PRE].StageInit( 	IIR, 	1, &EP_CF[0],EP_L, EP_R,  EP_CF[0], 	'E',  	1,  ((2560+1550) <<16) | (2560+1550),"EP1_TAB");   							  				
+#endif 
 	
    // MAL - MC Antialias  	
 	FILT[MID].StageInit( 	IIR, 	1, MAL_CF,  MAL_L, MAL_R, MAL_CF[0], 				'I', 	1,  0, 					"MAL_TAB");
@@ -152,8 +158,11 @@ void MCEP::Config(void)
 		MCB_CF[k]= TME[SpkNum].MCB[SR_44_48][k];
 	for (k=0; k< TME[SpkNum].MCT[SR_PROC::SR_ID][0]*4+ 2; k++)
 		MCT_CF[k]= TME[SpkNum].MCT[SR_PROC::SR_ID][k];
+#if SOFT_V & SH_BASE 		
 	for (k=0; k< TME[SpkNum].EPS[SR_PROC::SR_ID][0]*4+ 2; k++)
 		EP_CF[k]= TME[SpkNum].EPS[SR_PROC::SR_ID][k];
+#endif
+		
 	for (k=0; k< TMALS[SR_PROC::SR_ID][0]*4+ 2; k++)
 		MAL_CF[k]= TMALS[SR_PROC::SR_ID][k];
 		

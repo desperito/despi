@@ -8,7 +8,7 @@
 #include 	"hPlaySession.hpp"
 #include 	"hMODEC.hpp"
 #include 	"hDSPSTRING.hpp"
-#include 	"hSR_MANAGER.hpp"
+//#include 	"hSR_MANAGER.hpp"
 #include 	"hSR_PROC.hpp"
 #include 	"hDELI_CMD.hpp"
 

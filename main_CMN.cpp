@@ -5,10 +5,12 @@
  #define  	SRUDEBUG  // Check SRU Routings for errors.
  #include 	<SRU.h>
 
-#include 	"hLMK.hpp"
-#include 	"hSR_Manager.hpp"
-#include 	"hI2S_PORTS.hpp"
-#include 	"hI2STX_LINE.hpp"	
+#if	(SOFT_V & SHARC_HW) 
+ #include 	"hLMK.hpp"
+ #include 	"hSR_Manager.hpp"
+ #include 	"hI2S_PORTS.hpp"
+ #include 	"hI2STX_LINE.hpp"	
+#endif
 
 #include 	"hRESAMPLER.hpp"
 #include  	"hSR_PROC.hpp"
@@ -20,6 +22,10 @@
 #include 	"hVOL_MAN.hpp"
 
 #include 	"hDSP_MCEP.hpp"
+
+#include 	"hPlaySession.hpp"
+#include 	"hDSP_MANAGER.hpp"
+
  
 #include 	<stdio.h>
 #include 	<stdlib.h>
@@ -132,8 +138,8 @@ void	PowerOn_setup(void)
 //	UARTBUF0Init();		
 //= ONE-OFF-s
 
-	DSPSTRING::Apply_Default_String();	
-	DSPSTRING::Apply_Current_String(); 
+	//DSPSTRING::Apply_Default_String();	
+	//DSPSTRING::Apply_Current_String(); 
 
 
    #if ( (SOFT_V == SH_DSP && xDSPMODE == xMULTISPK) || SOFT_V == SH_XOEP_PROD || SOFT_V & LINUX_HW)

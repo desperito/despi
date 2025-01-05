@@ -262,7 +262,7 @@ void 	PlaySession::Full_Reconfig(void)
    			DELI_CMD::Send_EP(CLR_FIR);   		  	
 	}
    #endif
-	trace("\nPS NPC", 0);	
+	//trace("\nPS NPC", 0);	
  #elif  UART_TYPE == UART_NEW
   	if (DSPSTRING::Get_Digitbit(DSPSTR_EXPH)  )		
    		DELI_CMD::Send_EP(SET_FIR); 
@@ -398,14 +398,14 @@ void 	PlaySession::Msg0x58_Proc(int *msg)
 		tmp = ( msg[2] & (0x03<<1) )>>1;		
 		CORRECTION_TYPE	= 	tmp;
 	   #if (OUT1A_ACTIVE == 1)
-		trace("\n10",0); 
+		//trace("\n10",0); 
 
 /*   		if (PlaySession::DEV_MODE == xDAC)
 			Out1A->TX_Buffers_Runtime_Reconf(SP_RSMP[TWT][LEFT_0].BufD,	SP_RSMP[TWT][RIGHT_0].BufD, NULL, NULL); 							 	   	
    		else
 			Out1A->TX_Buffers_Runtime_Reconf(SP_FILT[MID][LEFT_0].BufD,	SP_FILT[MID][RIGHT_0].BufD, NULL, NULL); 							 	   		   	   
 */
-		trace("\n11",0); 
+		//trace("\n11",0); 
 						
 		switch (CORRECTION_TYPE)
 		{			
@@ -443,7 +443,7 @@ void 	PlaySession::Msg0x58_Proc(int *msg)
   			//RESAMPLER::Rsmp_Size_Vol_Delay();
   			DSP_TAB::Stage_Switches(); 
 			VOL_MAN::VOL_Stages_Setup(); //DSP_TAB::Stage_Switches();
-			trace("\nPS Switch", 0);  			 			
+			//trace("\nPS Switch", 0);  			 			
 		}
 /*		if ((confdac & 0x01<<M_TEST2)	>>	M_TEST2 )
     	{	SRU(DIT_O, 				DAI_PB01_I) ;	 }

@@ -18,6 +18,7 @@
 #include  	"hDSPSTRING.hpp"
 #include 	"hPlaySession.hpp"
 #include 	"hRESAMPLER.hpp"
+#include 	"hSR_PROC.hpp"
 
                                    
 //BUF_MANAGER *PM_BUFS[I2STX_QTY][2];

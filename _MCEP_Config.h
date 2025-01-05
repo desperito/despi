@@ -2,33 +2,33 @@
  #define MCEPCONFIG_H
 
   extern float pm OVB19B[]; 
-  extern  section  ("seg_dmda2") 	float OVB19B_state[]; 
-  extern  section  ("seg_dmda2")	float OXB19B_state[]; 
+  extern  SECTION  ("seg_dmda2") 	float OVB19B_state[]; 
+  extern  SECTION  ("seg_dmda2")	float OXB19B_state[]; 
  
   extern float pm OVT19B[]; 
-  extern  section  ("seg_dmda2") 	float OVT19B_state[]; 
-  extern  section  ("seg_dmda2") 	float OXT19B_state[]; 
+  extern  SECTION  ("seg_dmda2") 	float OVT19B_state[]; 
+  extern  SECTION  ("seg_dmda2") 	float OXT19B_state[]; 
     
   extern float pm R0B44A[]; 
-  extern float  section  ("seg_dmda2") R0B44A_state[]; 
+  extern float  SECTION  ("seg_dmda2") R0B44A_state[]; 
 
   extern float pm DYB96B[];    
-  extern float  section  ("seg_dmda2") DXB96B_state[];
-  extern float  section  ("seg_dmda2") DYB96B_state[];  
+  extern float  SECTION  ("seg_dmda2") DXB96B_state[];
+  extern float  SECTION  ("seg_dmda2") DYB96B_state[];  
 
   extern float pm DYB88B[];    
-  extern float  section  ("seg_dmda2") DXB88B_state[];
-  extern float  section  ("seg_dmda2") DYB88B_state[];  
+  extern float  SECTION  ("seg_dmda2") DXB88B_state[];
+  extern float  SECTION  ("seg_dmda2") DYB88B_state[];  
 
   extern float pm DYB17B[];    
-  extern float  section  ("seg_dmda2") DXB17B_state[];
-  extern float  section  ("seg_dmda2") DYB17B_state[];  
+  extern float  SECTION  ("seg_dmda2") DXB17B_state[];
+  extern float  SECTION  ("seg_dmda2") DYB17B_state[];  
       
   	#define 		EP_HEX		16
   	#define 		MC_HEX		8
   	
-    char  			section  ("seg_sdram2")  	MCEP::IPL_TAB[] = {'S','W','W'}; 
-  	unsigned int	section  ("seg_sdram2")		MCEP::FlagsDSP =  (0x0C <<MC_HEX) | (0x00 <<EP_HEX)  | 0x0A     
+    char  			SECTION  ("seg_sdram2")  	MCEP::IPL_TAB[] = {'S','W','W'}; 
+  	unsigned int	SECTION  ("seg_sdram2")		MCEP::FlagsDSP =  (0x0C <<MC_HEX) | (0x00 <<EP_HEX) // | 0x0A     
     																							; 
  
 /*    	
