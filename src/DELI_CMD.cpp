@@ -1,5 +1,6 @@
 
 #include 	"tt.h"
+#include "XOFIR.h"
 
 #include 	<stdio.h>
 
@@ -25,7 +26,7 @@
 #define		x55_FREQ_BYTE0			2
 #define		x55_FREQ_BYTE1			3
 #define		x55_FREQ_BYTE2			4
-#define		xPREDEF2CHAR			2
+#define		xPREDEF2CHAR			2 
 #define		x55_CODE_XOFIR			0x83
 #define		x55_CODE_MAL			(36+128)
 #define		x55_CODE_EP				(35+128)
@@ -35,7 +36,7 @@
 
 //*****************************************	
 //*****************************************	
-#include 	"hDeli_CMD.hpp"
+#include "hDELI_CMD.hpp"
 
 SECTION ("seg_sdram2")  long long  EPTAB[8][1505]; 
 
@@ -43,7 +44,7 @@ extern 	MCEP_T		TME[];
 
 extern 	long long 	TMALF[6][MAL_LEN];
 
- #include "include\XOFIR.h"
+ #include "XOFIR.h"
 //extern 	long long 	TXOFIR[];
 
 #define cGREEN			0x001000
@@ -421,7 +422,7 @@ void 	DELI_CMD::Send_VOL(int *msg)
 }
 
 
-int 	DELI_CMD::Setup_ACKFIR(int FIR_NO)
+int DELI_CMD::Setup_ACKFIR(int FIR_NO)
 {
 				
 	tRXQTY = frame_no+ RXFRAME_DELAY;  // target tRXQTY to be monitored to trigger check on FIR packet succcessful delivery
@@ -436,9 +437,10 @@ int 	DELI_CMD::Setup_ACKFIR(int FIR_NO)
 	pRXQTY = cRXQTY;
 	return(cRXQTY-temp);
 */	
+	return 0;
 }
 
-int 	DELI_CMD::Check_ACKFIR(void)
+int DELI_CMD::Check_ACKFIR(void)
 {
 	int k, status_LED;
 	
@@ -469,6 +471,7 @@ int 	DELI_CMD::Check_ACKFIR(void)
 		frame_no = 0;
 		tRXQTY = 0;
 	}
+	return 0;
 }		
 	
 

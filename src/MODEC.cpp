@@ -19,8 +19,8 @@
 #include 	"hFILTER.hpp"
 #include 	"hDSPSTRING.hpp"
 
-#include 	"include\rt20.h"
-#include 	"include\rt200.h"
+#include "rt20.h"
+#include "rt200.h"
 
 //#include 	"C:\git_repos\__X1\include\test_x65.h"
 

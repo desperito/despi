@@ -7,7 +7,7 @@
 #include 	<stdlib.h>
 #include 	<math.h>
 #include 	"tt.h"
-#include  	".\include\_Sharc_EXPH_DEF.h"
+//#include    "_Sharc_EXPH_DEF.h"
 #include  	"SIM.h"
 #include  	"hBUF_SRC.hpp"
 #include  	"hSR_PROC.hpp"
@@ -268,7 +268,8 @@ int  BUF_MANAGER::Flow_select(int BUF_MASK_ID)
 			jF = FLOW_XP_EP_RPI; 				  
 		  break;				
 		default: 
-			printf("Bad mask %d %x ",BUF_MASK_ID, this);	
+			//printf("Bad mask %d %x ",BUF_MASK_ID, this);	
+			printf("Bad mask %d %p ", BUF_MASK_ID, this);
 	}
 	return(jF);
 }

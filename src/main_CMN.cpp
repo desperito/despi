@@ -1,9 +1,9 @@
  #include 	"tt.h"	// Ekrem tt.h must be on top
- #include 	<21369.h>
- #include 	<Cdef21369.h> 
- #include 	<def21369.h>
+ //#include 	<21369.h>
+ //#include 	<Cdef21369.h> 
+ //#include 	<def21369.h>
  #define  	SRUDEBUG  // Check SRU Routings for errors.
- #include 	<SRU.h>
+ //#include 	<SRU.h>
 
 #if	(SOFT_V & SHARC_HW) 
  #include 	"hLMK.hpp"

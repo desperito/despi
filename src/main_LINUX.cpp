@@ -75,7 +75,7 @@ void DSP_Linux(void)
 //=============================================
 
 
- int	main(void)   
+ int main(void)   
  {	   
 	PowerOn_setup();
 	

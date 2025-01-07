@@ -43,7 +43,7 @@
 		#if		SIM_LEN	== SIM_LONG
 			#include 	"HP_DIRAC_TAB24_33k.h"
 		#else
-			#include 	"include\HP_DIRAC_TAB24_40k_SHORT.h"
+			#include "HP_DIRAC_TAB24_40k_SHORT.h"
 		#endif
 	#endif
 #else  

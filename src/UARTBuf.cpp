@@ -220,7 +220,9 @@ void UARTBUF::PUT_CHAR(char uart_char)
 				msg_len= A_MSGLEN;
 			  break; 
 			  											
-			case 0x50: case 0x52: 	case 0x80: 		
+			case 0x50: 
+			case 0x52: 	
+			case 0x80: 		
 			case 0x58:
 		       #if 	UART_TYPE == UART_OLD
 				msg_len= 16;		   

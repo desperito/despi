@@ -12,8 +12,8 @@
 extern 		RESAMPLER		RSMP[RSMPOBJ_QTY]; 
 extern 		FILTER			FILT[FILTOBJ_QTY]; 
 
-#include 	".\__MCEP_include\MALS_.h"
-#include 	".\__MCEP_include\MALF_.h"
+#include "MALS_.h"
+#include "MALF_.h"
 
 
 #if UART_TYPE == UART_OLD    	  	
@@ -48,7 +48,8 @@ extern 		FILTER			FILT[FILTOBJ_QTY];
 											   											   
 //SECTION(("seg_sdram2"))	MCEP_T		MCEP[MCEP_TABSIZE];
 
-#include ".\__MCEP_include\MCEP_SH.h"
+//#include ".\__MCEP_include\MCEP_SH.h"
+#include "./__MCEP_include/MCEP_SH.h"
 
 // SECTION  ("seg_dmda2")    float pm 		
 

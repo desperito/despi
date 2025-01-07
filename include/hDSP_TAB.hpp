@@ -11,10 +11,10 @@ struct DSP_Steps_TAB
 	FILTER 				*FilterObj;
 	int 				Stage_No;
 	void 				(*stagefun)(STAGE_PROC *SP, int kStage);
-	float pm 			*pcoeffs;
+	float    			*pcoeffs;
 	float				*Lstate;
 	float				*Rstate;	
-	char 				dspstr[DSPSTRING_LEN+2]; 
+	char 				dspstr[DSPSTRING_LEN+2];  
 	char 				param_code;  
 	int					sect_taps_qty;
 	int					down_ratio;

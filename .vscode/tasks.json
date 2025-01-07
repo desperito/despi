@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build for ARM",
+            "type": "shell",
+            "command": "aarch64-linux-gnu-g++",
+            "args": [
+                "-o", "build/despi",
+                "src/*.cpp",
+                "-Iinclude",
+                "-Iinclude/__MCEP_include",
+                "-Iinclude/Filtry_2021",
+                "-std=c++2a"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Build the project for ARM architecture."
+        }
+    ]
+}
+
