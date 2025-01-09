@@ -53,8 +53,8 @@ extern 		FILTER			FILT[FILTOBJ_QTY];
 
 // SECTION  ("seg_dmda2")    float pm 		
 
-SECTION ("seg_pmda") 	float 	pm	MCB_CF[MCB_MAXSECT*4+2], MCT_CF[MCT_MAXSECT*4+2]; 
-SECTION ("seg_pmda") 	float 	pm	MCA_CF[MCA_MAXSECT*4+2], MAL_CF[MAL_MAXSECT*4+2];  	
+SECTION ("seg_pmda") 	float 	MCB_CF[MCB_MAXSECT*4+2], MCT_CF[MCT_MAXSECT*4+2]; 
+SECTION ("seg_pmda") 	float 	MCA_CF[MCA_MAXSECT*4+2], MAL_CF[MAL_MAXSECT*4+2];  	
 SECTION  ("seg_dmda2")  float  	MCB_L[MCB_MAXSECT*2+ 1], MCB_R[MCB_MAXSECT*2+ 1], MCT_L[MCT_MAXSECT*2+ 1], MCT_R[MCT_MAXSECT*2+ 1], MCA_L[MCA_MAXSECT*2+ 1], MCA_R[MCA_MAXSECT*2+ 1]; 
 SECTION  ("seg_dmda2")  float  	MAL_L[MAL_MAXSECT*2+ 1], MAL_R[MAL_MAXSECT*2+ 1]; 	
 						int		MCEP::SpkNum;										   
