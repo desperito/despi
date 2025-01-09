@@ -1,26 +1,26 @@
 #ifndef MCEPCONFIG_H
  #define MCEPCONFIG_H
 
-  extern float pm OVB19B[]; 
+  extern float                        OVB19B[]; 
   extern  SECTION  ("seg_dmda2") 	float OVB19B_state[]; 
   extern  SECTION  ("seg_dmda2")	float OXB19B_state[]; 
  
-  extern float pm OVT19B[]; 
+  extern float    OVT19B[]; 
   extern  SECTION  ("seg_dmda2") 	float OVT19B_state[]; 
   extern  SECTION  ("seg_dmda2") 	float OXT19B_state[]; 
     
-  extern float pm R0B44A[]; 
+  extern float     R0B44A[]; 
   extern float  SECTION  ("seg_dmda2") R0B44A_state[]; 
 
-  extern float pm DYB96B[];    
+  extern float     DYB96B[];    
   extern float  SECTION  ("seg_dmda2") DXB96B_state[];
   extern float  SECTION  ("seg_dmda2") DYB96B_state[];  
 
-  extern float pm DYB88B[];    
+  extern float     DYB88B[];    
   extern float  SECTION  ("seg_dmda2") DXB88B_state[];
   extern float  SECTION  ("seg_dmda2") DYB88B_state[];  
 
-  extern float pm DYB17B[];    
+  extern float     DYB17B[];    
   extern float  SECTION  ("seg_dmda2") DXB17B_state[];
   extern float  SECTION  ("seg_dmda2") DYB17B_state[];  
       

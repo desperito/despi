@@ -1,5 +1,5 @@
-#ifndef MCEP_H
-#define MCEP_H
+#ifndef MCEP_SH
+#define MCEP_SH
 
 // Conditional compilation for section attribute based on compiler support
 #ifdef __GNUC__  // Or another condition specific to your toolchain
